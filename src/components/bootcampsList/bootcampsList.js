@@ -10,32 +10,53 @@ class BootcampListComponent extends Component {
         this.state = {
             searchField: '',
             bootcamps: [
-            {   id: 1,
+            {   id: 0,
                 name: "Frontend Bootcamp",
-                description: "Frontend Bootcamp"
+                description: "Frontend Bootcamp",
+                date: new Date("2020-05-10")
+            },
+            {
+                id: 1,
+                name: "Backend Bootcamp",
+                description: "Backend Bootcamp",
+                date: new Date("2020-05-09")
             },
             {
                 id: 2,
-                name: "Backend Bootcamp",
-                description: "Backend Bootcamp"
-            },
-            {
-                id: 3,
                 name: "ML Bootcamp",
-                description: "ML Bootcamp"
+                description: "ML Bootcamp",
+                date: new Date("2020-04-03")
             }
             ]
         }
     }
+<<<<<<< HEAD
     
+=======
+
+    handleDelete = (x) =>{
+        let auxArray = this.state.bootcamps;
+        
+        if (auxArray.length > 1) {
+            auxArray.splice(x,1);
+        } else {
+            auxArray.pop();
+        }
+    
+        this.setState({
+            bootcamps:auxArray
+        })
+    }
+
+>>>>>>> tema 1
     render() {
         const {bootcamps, searchField} = this.state;
-        const filteredBootcamps = bootcamps.filter(bootcamp => bootcamp.name.toLowerCase().includes(searchField.toLocaleLowerCase()))
+        const filteredBootcamps = bootcamps.filter(bootcamp => bootcamp.name.toLowerCase().includes(searchField.toLocaleLowerCase())).sort((a, b) => a.date - b.date)
         return (
             <div className="container">
                 <SearchBarCompoent placeholder="Search bootcamps" handleChange={e => this.setState({searchField: e.target.value})}></SearchBarCompoent>
                 <div className="card-list">
-                {filteredBootcamps.map(bootcamp => <BootcampComponent key={bootcamp.id} bootcamp={bootcamp}></BootcampComponent>)}
+                {filteredBootcamps.map(bootcamp => <BootcampComponent bootcamp={bootcamp} key={bootcamp.id} deleteThis={this.handleDelete} index ={bootcamp.id}></BootcampComponent>)}
             </div>
             </div>
         
