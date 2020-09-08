@@ -31,8 +31,16 @@ class BootcampListComponent extends Component {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
+=======
+<<<<<<< HEAD
+    
+=======
+=======
+>>>>>>> 2eadba628ab4f4952ef09b81ee3837aea8deb3e5
+>>>>>>> aa9de053fc16f35a3372d21c65096a509276853e
 
     handleDelete = (x) =>{
         let auxArray = this.state.bootcamps;
@@ -48,7 +56,14 @@ class BootcampListComponent extends Component {
         })
     }
 
+<<<<<<< HEAD
 >>>>>>> tema 1
+=======
+<<<<<<< HEAD
+>>>>>>> tema 1
+=======
+>>>>>>> 2eadba628ab4f4952ef09b81ee3837aea8deb3e5
+>>>>>>> aa9de053fc16f35a3372d21c65096a509276853e
     render() {
         const {bootcamps, searchField} = this.state;
         const filteredBootcamps = bootcamps.filter(bootcamp => bootcamp.name.toLowerCase().includes(searchField.toLocaleLowerCase())).sort((a, b) => a.date - b.date)
