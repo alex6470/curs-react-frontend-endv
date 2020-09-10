@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import BootcampComponent from '../bootcamp/bootcamp';
 import SearchBarCompoent from '../searchBar/searchBar';
 import './bootcampsList.css';
+import axios from 'axios';
+import Spinner from '../spinnerComponent/spinner';
 
 class BootcampListComponent extends Component {
     constructor() {
@@ -9,69 +11,36 @@ class BootcampListComponent extends Component {
 
         this.state = {
             searchField: '',
+            isLoading: false,
             bootcamps: [
-            {   id: 0,
-                name: "Frontend Bootcamp",
-                description: "Frontend Bootcamp",
-                date: new Date("2020-05-10")
-            },
-            {
-                id: 1,
-                name: "Backend Bootcamp",
-                description: "Backend Bootcamp",
-                date: new Date("2020-05-09")
-            },
-            {
-                id: 2,
-                name: "ML Bootcamp",
-                description: "ML Bootcamp",
-                date: new Date("2020-04-03")
+                {
+                name: '',
+                id: '1'
             }
             ]
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-=======
-=======
-<<<<<<< HEAD
-    
-=======
-=======
->>>>>>> 2eadba628ab4f4952ef09b81ee3837aea8deb3e5
->>>>>>> aa9de053fc16f35a3372d21c65096a509276853e
 
-    handleDelete = (x) =>{
-        let auxArray = this.state.bootcamps;
+    componentDidMount() {
+        this.setState({isLoading: true});
+        axios.get('http://www.endava-bootcamp.com/api/v1/bootcamps/', {headers: {
+            "Access-Control-Allow-Origin": "*"
+        }}).then(
+            response =>  {
+                console.log(response, 'raspuns')
+                this.setState({bootcamps: response.data.data, isLoading: false})});
         
-        if (auxArray.length > 1) {
-            auxArray.splice(x,1);
-        } else {
-            auxArray.pop();
-        }
-    
-        this.setState({
-            bootcamps:auxArray
-        })
     }
-
-<<<<<<< HEAD
->>>>>>> tema 1
-=======
-<<<<<<< HEAD
->>>>>>> tema 1
-=======
->>>>>>> 2eadba628ab4f4952ef09b81ee3837aea8deb3e5
->>>>>>> aa9de053fc16f35a3372d21c65096a509276853e
+    
     render() {
-        const {bootcamps, searchField} = this.state;
-        const filteredBootcamps = bootcamps.filter(bootcamp => bootcamp.name.toLowerCase().includes(searchField.toLocaleLowerCase())).sort((a, b) => a.date - b.date)
-        return (
+        const {bootcamps, searchField, isLoading} = this.state;
+        console.log(bootcamps, 'bootcamps');
+        const filteredBootcamps = bootcamps.filter(bootcamp => bootcamp.name.toLowerCase().includes(searchField.toLocaleLowerCase()))
+        return isLoading ? <Spinner /> : (
             <div className="container">
                 <SearchBarCompoent placeholder="Search bootcamps" handleChange={e => this.setState({searchField: e.target.value})}></SearchBarCompoent>
                 <div className="card-list">
-                {filteredBootcamps.map(bootcamp => <BootcampComponent bootcamp={bootcamp} key={bootcamp.id} deleteThis={this.handleDelete} index ={bootcamp.id}></BootcampComponent>)}
+                {filteredBootcamps.map(bootcamp => <BootcampComponent key={bootcamp.id} bootcamp={bootcamp}></BootcampComponent>)}
             </div>
             </div>
         
