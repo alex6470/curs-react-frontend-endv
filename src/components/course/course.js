@@ -1,16 +1,15 @@
 import React, {Component} from  'react';
 
 
-class CourseComponent extends Component {
-    constructor() {
-        super();
-    }
-
-    render() {
-        return (
-            <div>Couse Component works</div>
-        )
-    }
+const CourseComponent = props => {
+    
+    const {course:{name,id}, searchField} = props;
+    return (
+        <div className="card-container">
+        <p>{id}</p>
+        <p>{name}</p>
+    </div>
+    )
 }
 
 export default CourseComponent;
